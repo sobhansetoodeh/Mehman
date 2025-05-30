@@ -52,7 +52,7 @@ router.post('/', authMiddleware, async (req, res) => {
 // لیست درخواست‌ها
 router.get('/', authMiddleware, async (req, res) => {
   let requests;
-  if (req.user.role === 'herasat') {
+  if (req.user.role === 'herasat' || req.user.role === 'admin') {
     requests = await Request.find();
   } else {
     requests = await Request.find({ 'createdBy.userId': req.user.userId });
@@ -85,7 +85,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
   const request = await Request.findById(req.params.id);
   if (!request) return res.status(404).json({ message: 'درخواست پیدا نشد' });
 
-  if (req.user.role === 'herasat') {
+ if (req.user.role === 'herasat' || req.user.role === 'admin') {
     const { status, statusNote } = req.body;
     request.status = status;
     request.statusNote = statusNote;
@@ -99,7 +99,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     return res.json(request);
   }
 
-  if (req.user.role === 'tashrifat' && request.status === 'incomplete') {
+  if (req.user.role === 'tashrifat' || req.user.role === 'admin' && request.status === 'incomplete') {
     Object.assign(request, req.body, { status: 'pending', statusNote: '', updatedAt: new Date() });
     request.lastActionBy = {
       userId: req.user.userId,

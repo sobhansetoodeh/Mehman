@@ -84,7 +84,7 @@ function Dashboard({ role }) {
 
   return (
     <div style={{ padding: 24 }}>
-      {role === 'tashrifat' && (
+      {(role === 'tashrifat' || role === 'admin') && (
         <Button type="primary" style={{ marginBottom: 16 }}>
           <Link to="/requests/new">ثبت درخواست جدید</Link>
         </Button>

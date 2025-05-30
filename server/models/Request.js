@@ -11,7 +11,6 @@ const requestSchema = new mongoose.Schema({
   stayTo: Date,
   reason: String,
   villaNo: String,
-  formFillerName: String,
   status: { type: String, enum: ['pending', 'approved', 'rejected', 'incomplete'], default: 'pending' },
   statusNote: String,
   trackingCode: { type: String, unique: true },

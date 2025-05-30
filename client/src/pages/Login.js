@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import '@ant-design/v5-patch-for-react-19';
 import { Form, Input, Button, Card, Typography, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import 'antd/dist/reset.css'; // For Ant Design v5+
 const { Title } = Typography;
 
 function Login({ setToken, setRole, setName }) {
@@ -16,7 +16,14 @@ function Login({ setToken, setRole, setName }) {
         body: JSON.stringify(values),
       });
       const data = await res.json();
-      if (res.ok) {
+
+      // Debugging: See what backend returns
+      console.log('res.ok:', res.ok);
+      console.log('res.status:', res.status);
+      console.log('data:', data);
+
+      // Only check for data.token
+      if (data.token) {
         setToken(data.token);
         setRole(data.role);
         setName(data.fullName);
@@ -27,8 +34,8 @@ function Login({ setToken, setRole, setName }) {
       } else {
         notification.error({
           message: 'خطا در ورود',
-          description: 'نام کاربری یا رمز عبور اشتباه است',
-          placement: 'top',
+          description: data.message || 'نام کاربری یا رمز عبور اشتباه است',
+          placement: 'topRight',
           duration: 3
         });
       }
@@ -36,7 +43,7 @@ function Login({ setToken, setRole, setName }) {
       notification.error({
         message: 'خطا در ارتباط با سرور',
         description: 'لطفاً بعداً دوباره تلاش کنید.',
-        placement: 'top',
+        placement: 'topRight',
         duration: 3
       });
     }
@@ -122,5 +129,5 @@ function Login({ setToken, setRole, setName }) {
     </div>
   );
 }
- 
+
 export default Login;

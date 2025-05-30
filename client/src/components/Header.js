@@ -4,14 +4,20 @@ import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
-function Header({ onLogout, userName, role, theme }) {
+function Header({ onLogout, userName, role }) {
+  // رنگ navy و سفید
+  const navy = '#1a237e';
+  const white = '#fff';
+
   // Fallbacks
   const displayName = userName && userName.trim() !== '' ? userName : 'کاربر';
   const displayRole =
-    role === 'herasat'
+      role === 'herasat'
       ? 'حراست'
       : role === 'tashrifat'
       ? 'تشریفات'
+      : role === 'admin'
+      ? 'مدیر سیستم'
       : '---';
 
   const menu = (
@@ -21,18 +27,21 @@ function Header({ onLogout, userName, role, theme }) {
         fontFamily: 'Vazir, Tahoma, Arial, sans-serif',
         direction: 'rtl',
         textAlign: 'right',
+        background: navy,
+        color: white,
+        border: 'none'
       }}
     >
-      <Menu.Item key="profile" disabled style={{ cursor: 'default', background: theme === 'dark' ? '#23272f' : '#fff' }}>
+      <Menu.Item key="profile" disabled style={{ cursor: 'default', background: navy, color: white }}>
         <div>
-          <Text strong>{displayName}</Text>
+          <Text strong style={{ color: white }}>{displayName}</Text>
           <br />
-          <Text type="secondary" style={{ fontSize: 12 }}>{displayRole}</Text>
+          <Text type="secondary" style={{ fontSize: 12, color: '#b0bec5' }}>{displayRole}</Text>
         </div>
       </Menu.Item>
-      <Menu.Divider />
+      <Menu.Divider style={{ background: '#3949ab' }} />
       <Menu.Item key="logout" onClick={onLogout} icon={<LogoutOutlined style={{ color: '#f5222d' }} />}>
-        خروج
+        <span style={{ color: white }}>خروج</span>
       </Menu.Item>
     </Menu>
   );
@@ -45,24 +54,25 @@ function Header({ onLogout, userName, role, theme }) {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '16px 24px',
-        background: theme === 'dark' ? '#23272f' : '#f0f2f5',
-        borderBottom: '1px solid #e8e8e8',
+        background: navy,
+        borderBottom: '1px solid #0d1333',
         marginBottom: 24,
-        color: theme === 'dark' ? '#fff' : '#222',
+        color: white,
         fontFamily: 'Vazir, Tahoma, Arial, sans-serif',
         transition: 'background 0.3s, color 0.3s',
         direction: 'rtl'
       }}
     >
       <div>
-        <b>سامانه مدیریت مهمانسرا</b>
+        <b>سازمان منطقه آزاد چابهار - سامانه مدیریت مهمانسرای ۶۳ واحدی</b>
       </div>
       <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
         <Avatar
           style={{
-            backgroundColor: theme === 'dark' ? '#444' : '#1890ff',
+            backgroundColor: '#3949ab',
             cursor: 'pointer',
             marginLeft: 8,
+            color: white
           }}
           icon={<UserOutlined />}
           size="large"

@@ -76,9 +76,6 @@ function NewRequest() {
         <Form.Item label="شماره ویلا" name="villaNo" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="نام تکمیل کننده فرم" name="formFillerName" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block>
             ارسال درخواست

@@ -1,11 +1,3 @@
-@font-face {
-  font-family: 'Vazir';
-  src: url('/fonts/Vazir.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 body, * {
   font-family: 'Vazir', Tahoma, Arial, sans-serif !important;
 }
@@ -34,7 +26,12 @@ body, * {
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+/* Add to your main CSS file */
+.ant-descriptions-item-content {
+  text-align: justify !important;
+  direction: rtl !important;
+  font-family: Vazir, Tahoma, Arial, sans-serif !important;
+}
 .App-link {
   color: #61dafb;
 }
